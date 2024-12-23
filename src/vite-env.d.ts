@@ -5,5 +5,6 @@ declare module "react" {
   interface CSSProperties {
     "--color"?: string;
     "--border"?: string;
+    "--color-card"?: string;
   }
 }

@@ -1,29 +1,44 @@
+import { useTheme } from "@/context/ThemeContext";
 import { Button } from "./ui/button";
 import { Moon, Sun } from "lucide-react";
 
 export default function Header() {
-  const changeTheme = (theme: string) => {
-    if (theme === "light") {
-      document.documentElement.classList.remove("dark");
-      document.documentElement.setAttribute("data-theme", "light");
-    } else {
-      document.documentElement.classList.add("dark");
-      document.documentElement.setAttribute("data-theme", "dark");
-    }
-  };
+  const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="h-48 flex flex-col justify-evenly items-center">
-      <h1 className="text-5xl text-dark dark:text-white">
+    <header className="h-48 flex justify-evenly items-center">
+      <div className="absolute left-0 top-0 p-8 flex items-center">
+        <img
+          src="/favicon.svg"
+          alt="Logo 'Dream color'"
+          className="w-12 h-12"
+        />
+        <h3
+          className="text-2xl font-bold ml-2"
+          style={{ color: theme == "light" ? "black" : "white" }}
+        >
+          Dream Color
+        </h3>
+      </div>
+      <h1 className="text-5xl text-black dark:text-white tracking-widest font-bold">
         ! Crea tu paleta de colores !
       </h1>
-      <div>
-        <Button onClick={() => changeTheme("light")}>
-          <Sun /> Claro
-        </Button>
-        <Button onClick={() => changeTheme("dark")}>
-          <Moon /> Oscuro
-        </Button>
+      <div className="absolute right-0 top-0 p-8">
+        {theme == "light" ? (
+          <Button
+            className="bg-transparent shadow-none hover:bg-transparent"
+            onClick={() => toggleTheme()}
+          >
+            <Sun color="black" size={48} />
+          </Button>
+        ) : (
+          <Button
+            className="dark:bg-transparent shadow-none dark:hover:bg-transparent"
+            onClick={() => toggleTheme()}
+          >
+            <Moon color="white" size={48} />
+          </Button>
+        )}
       </div>
     </header>
   );
