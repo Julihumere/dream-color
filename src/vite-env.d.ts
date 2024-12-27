@@ -6,5 +6,7 @@ declare module "react" {
     "--color"?: string;
     "--border"?: string;
     "--color-card"?: string;
+    "--light"?: string[];
+    "--dark"?: string[];
   }
 }

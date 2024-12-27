@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import SelectorColor from "./components/SelectorColor";
@@ -26,6 +26,19 @@ function App() {
   const lightScale = chroma.scale(["white", color]).colors(11).slice(1, 10);
   const darkScale = chroma.scale([color, "black"]).colors(10).slice(0, 9);
 
+  useEffect(() => {
+    if (theme === "light") {
+      document.documentElement.style.setProperty("--color-start", darkScale[7]);
+      document.documentElement.style.setProperty("--color-end", darkScale[5]);
+    } else {
+      document.documentElement.style.setProperty(
+        "--color-start",
+        lightScale[3]
+      );
+      document.documentElement.style.setProperty("--color-end", lightScale[5]);
+    }
+  }, [color, theme]);
+
   const addColor = (
     light: string[],
     dark: string[],
@@ -48,10 +61,6 @@ function App() {
   };
 
   const changeColorLibrary = (primary: string, secondary: string) => {
-    console.log("Cambiando color");
-    console.log("primary", primary);
-    console.log("secondary", secondary);
-
     if (primary === "" || secondary === "") {
       setColor("#FF0934");
       setSecondaryColor("#FFFFFF");
@@ -65,7 +74,7 @@ function App() {
     <main
       style={{
         background: `linear-gradient(to bottom, ${
-          theme == "light" ? lightScale[5] : darkScale[4]
+          theme == "light" ? lightScale[6] : darkScale[4]
         } 15%, ${theme === "light" ? "#fff" : "#111"}) 85%`,
       }}
       className="w-full flex flex-col items-center bg-white dark:bg-black"
@@ -81,7 +90,7 @@ function App() {
         <Pallete lightScale={lightScale} darkScale={darkScale} color={color} />
         <Label className="flex items-center">
           <Input
-            className="w-56 border-[0.5px] mr-2 text-black dark:text-white"
+            className="w-56 border-[0.5px] mr-2 text-black dark:text-white dark:placeholder:text-white"
             placeholder="Nombre del color"
             style={{ borderColor: secondaryColor }}
             onChange={(e) => setName(e.target.value)}

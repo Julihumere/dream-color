@@ -20,13 +20,12 @@ export default function Header() {
           Dream Color
         </h3>
       </div>
-      <h1 className="text-5xl text-black dark:text-white tracking-widest font-bold">
-        ! Crea tu paleta de colores !
-      </h1>
+      <h1 className="title-page">! Crea tu paleta de colores !</h1>
+
       <div className="absolute right-0 top-0 p-8">
         {theme == "light" ? (
           <Button
-            className="bg-transparent shadow-none hover:bg-transparent"
+            className="dark:bg-transparent shadow-none dark:hover:bg-transparent"
             onClick={() => toggleTheme()}
           >
             <Sun color="black" size={48} />

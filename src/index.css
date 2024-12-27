@@ -21,3 +21,32 @@ body {
     --radius: 0.5rem;
   }
 }
+
+/* titulo */
+.title-page {
+  font-size: 4rem;
+  margin: 0;
+  padding: 100px 0;
+  width: 100%;
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--color-start), var(--color-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 300% 300%;
+  line-height: 1;
+  text-transform: capitalize;
+  text-align: center;
+  animation: animate 5s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

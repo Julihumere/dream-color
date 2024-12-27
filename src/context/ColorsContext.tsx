@@ -97,6 +97,8 @@ export const ColorsProvider = ({ children }: { children: ReactNode }) => {
 
     if (colorsLocalStorage) {
       const colorsParsed = JSON.parse(colorsLocalStorage);
+      console.log(colorsParsed);
+
       setColors(colorsParsed);
     }
   }, []);
