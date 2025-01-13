@@ -13,7 +13,7 @@ export function Toaster({ color }: { color: string }) {
 
   return (
     <ToastProvider>
-      {toasts.map(function ({ id, title, description, action, ...props }) {
+      {toasts.map(function ({ id, title, description, ...props }) {
         return (
           <Toast
             className="mb-2"
@@ -27,7 +27,6 @@ export function Toaster({ color }: { color: string }) {
                 <ToastDescription>{description}</ToastDescription>
               )}
             </div>
-            {action}
             <ToastClose />
           </Toast>
         );

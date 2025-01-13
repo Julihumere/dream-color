@@ -97,10 +97,21 @@ export const ColorsProvider = ({ children }: { children: ReactNode }) => {
 
     if (colorsLocalStorage) {
       const colorsParsed = JSON.parse(colorsLocalStorage);
-      console.log(colorsParsed);
-
       setColors(colorsParsed);
     }
+
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === "colors" && event.newValue) {
+        console.log("Colores sincronizados desde otra pestaña");
+        setColors(JSON.parse(event.newValue));
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   return (

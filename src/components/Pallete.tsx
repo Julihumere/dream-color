@@ -1,10 +1,10 @@
-import { useState } from "react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "../components/ui/tooltip";
+import { Copy } from "lucide-react";
 import { clipboard } from "../utils/clipboard";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "./ui/toast";
@@ -20,55 +20,62 @@ export default function Pallete({
   color,
 }: PalleteProps) {
   const { toast } = useToast();
-  const [colorCopied, setColorCopied] = useState("Copy");
+
+  const handleCopy = (color: string) => {
+    clipboard(color);
+    toast({
+      description: `Color ${color} copiado`,
+      action: <ToastAction altText="Cancel">❌</ToastAction>,
+    });
+  };
 
   return (
     <TooltipProvider>
       <main className="w-[90%] h-52 flex flex-wrap justify-center items-center">
         {lightScale.map((color, index) => (
-          <Tooltip key={index} delayDuration={200}>
+          <Tooltip key={index} delayDuration={100}>
             <TooltipTrigger
-              onClick={() => {
-                clipboard(color);
-                setColorCopied(color);
-                toast({
-                  description: "✅ Copiado.",
-                  action: <ToastAction altText="Cancel">❌</ToastAction>,
-                });
-              }}
-              className="w-20 h-20 border-[0.5px] border-white hover:scale-110 hover:px-2 transition-all ease-out duration-300"
+              onClick={() => handleCopy(color)}
+              className="w-20 h-20 flex items-center justify-center border-[0.5px] border-white hover:scale-110 hover:px-2 transition-all ease-out duration-300"
               style={{ backgroundColor: color }}
-            ></TooltipTrigger>
+            >
+              <span className="-z-10 hover:z-10">
+                <Copy color="black" />
+              </span>
+            </TooltipTrigger>
+
             <TooltipContent>
-              <p>{colorCopied == color ? "Copied!" : "Copy"}</p>
+              <p>{color}</p>
             </TooltipContent>
           </Tooltip>
         ))}
-        <Tooltip delayDuration={200}>
+        <Tooltip delayDuration={100}>
           <TooltipTrigger
-            onClick={() => {
-              clipboard(color);
-              setColorCopied(color);
-            }}
-            className="w-20 h-20 border-[0.5px] border-white hover:scale-110 hover:px-2 transition-all ease-out duration-300"
+            onClick={() => handleCopy(color)}
+            className="w-20 h-20 flex items-center justify-center border-[0.5px] border-white hover:scale-110 hover:px-2 transition-all ease-out duration-300"
             style={{ backgroundColor: color }}
-          ></TooltipTrigger>
+          >
+            <span className="-z-10 hover:z-10">
+              <Copy />
+            </span>
+          </TooltipTrigger>
           <TooltipContent>
-            <p>{colorCopied}</p>
+            <p>{color}</p>
           </TooltipContent>
         </Tooltip>
         {darkScale.map((color, index) => (
-          <Tooltip key={index} delayDuration={200}>
+          <Tooltip key={index} delayDuration={100}>
             <TooltipTrigger
-              onClick={() => {
-                clipboard(color);
-                setColorCopied(color);
-              }}
-              className="w-20 h-20 border-[0.5px] border-white hover:scale-110 hover:px-2 transition-all ease-out duration-300"
+              onClick={() => handleCopy(color)}
+              className="w-20 h-20 flex items-center justify-center border-[0.5px] border-white hover:scale-110 hover:px-2 transition-all ease-out duration-300"
               style={{ backgroundColor: color }}
-            ></TooltipTrigger>
+            >
+              <span className="-z-10 hover:z-10">
+                <Copy />
+              </span>
+            </TooltipTrigger>
             <TooltipContent>
-              <p>{colorCopied}</p>
+              <p>{color}</p>
             </TooltipContent>
           </Tooltip>
         ))}

@@ -1,3 +1,4 @@
+import { useTheme } from "@/context/ThemeContext";
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 export type SelectorColorProps = {
@@ -13,25 +14,54 @@ export default function SelectorColor({
   secondaryColor,
   setSecondaryColor,
 }: SelectorColorProps) {
+  const { theme } = useTheme();
   const [, setLocation] = useLocation();
-  useEffect(() => {
-    const queryString = new URLSearchParams(window.location.search).get(
-      "color"
-    );
 
-    if (queryString) {
-      setColor(queryString ?? "");
-    }
+  const updateQueryString = (
+    newColor?: string,
+    newFont?: string,
+    newTheme?: string
+  ) => {
+    const queryString = new URLSearchParams();
+
+    // Agregar parámetros en el orden correcto
+    if (newColor) queryString.set("color", `#${newColor.slice(1, 8)}`);
+    else if (color) queryString.set("color", `#${color.slice(1, 8)}`);
+
+    if (newFont) queryString.set("font", `#${newFont.slice(1, 8)}`);
+    else if (secondaryColor)
+      queryString.set("font", `#${secondaryColor.slice(1, 8)}`);
+
+    if (newTheme) queryString.set("theme", newTheme);
+    else if (theme) queryString.set("theme", theme);
+
+    setLocation(`?${queryString.toString()}`);
+  };
+
+  useEffect(() => {
+    const queryString = new URLSearchParams(window.location.search);
+    const colorParam = queryString.get("color");
+    const fontParam = queryString.get("font");
+
+    if (colorParam) setColor(colorParam);
+    if (fontParam) setSecondaryColor(fontParam);
   }, []);
 
+  // Efecto para actualizar el query string al cambiar el theme
+  useEffect(() => {
+    updateQueryString(undefined, undefined, theme);
+  }, [theme]);
+
   const handleChangePrimary = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setColor(e.target.value);
-    setLocation(`?color=%23${e.target.value.slice(1, 8)}`);
+    const newColor = e.target.value;
+    setColor(newColor);
+    updateQueryString(newColor, undefined, undefined);
   };
 
   const handleChangeSecondary = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSecondaryColor(e.target.value);
-    setLocation(`?font=%23${e.target.value.slice(1, 8)}`);
+    const newFont = e.target.value;
+    setSecondaryColor(newFont);
+    updateQueryString(undefined, newFont, undefined);
   };
 
   return (

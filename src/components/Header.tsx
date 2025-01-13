@@ -1,5 +1,4 @@
 import { useTheme } from "@/context/ThemeContext";
-import { Button } from "./ui/button";
 import { Moon, Sun } from "lucide-react";
 
 export default function Header() {
@@ -24,19 +23,19 @@ export default function Header() {
 
       <div className="absolute right-0 top-0 p-8">
         {theme == "light" ? (
-          <Button
-            className="dark:bg-transparent shadow-none dark:hover:bg-transparent"
+          <Sun
+            color="black"
+            size={36}
             onClick={() => toggleTheme()}
-          >
-            <Sun color="black" size={48} />
-          </Button>
+            className="cursor-pointer"
+          />
         ) : (
-          <Button
-            className="dark:bg-transparent shadow-none dark:hover:bg-transparent"
+          <Moon
+            color="white"
+            size={36}
             onClick={() => toggleTheme()}
-          >
-            <Moon color="white" size={48} />
-          </Button>
+            className="cursor-pointer"
+          />
         )}
       </div>
     </header>

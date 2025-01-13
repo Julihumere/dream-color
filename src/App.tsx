@@ -8,12 +8,10 @@ import Items from "./components/Items";
 import { useTheme } from "./context/ThemeContext";
 import { Toaster } from "./components/ui/toaster";
 import SavedColors from "./components/SavedColors";
-import { Button } from "./components/ui/button";
-import { Bookmark } from "lucide-react";
 import { useColors } from "./context/ColorsContext";
-import { Label } from "@radix-ui/react-label";
-import { Input } from "./components/ui/input";
 import { useToast } from "./hooks/use-toast";
+import Footer from "./components/Footer";
+import ActionsButtons from "./components/ActionsButtons";
 
 function App() {
   const [color, setColor] = useState("#FF0934");
@@ -37,6 +35,7 @@ function App() {
       );
       document.documentElement.style.setProperty("--color-end", lightScale[5]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [color, theme]);
 
   const addColor = (
@@ -88,25 +87,14 @@ function App() {
       />
       <div className="w-full flex flex-col mb-10 justify-center items-center">
         <Pallete lightScale={lightScale} darkScale={darkScale} color={color} />
-        <Label className="flex items-center">
-          <Input
-            className="w-56 border-[0.5px] mr-2 text-black dark:text-white dark:placeholder:text-white"
-            placeholder="Nombre del color"
-            style={{ borderColor: secondaryColor }}
-            onChange={(e) => setName(e.target.value)}
-            value={name}
-          />
-          <Button
-            onClick={() => addColor(lightScale, darkScale, secondaryColor)}
-            style={{
-              backgroundColor: theme === "light" ? lightScale[7] : darkScale[0],
-              color: secondaryColor,
-            }}
-          >
-            <Bookmark />
-            Guardar
-          </Button>
-        </Label>
+        <ActionsButtons
+          secondaryColor={secondaryColor}
+          lightScale={lightScale}
+          darkScale={darkScale}
+          setName={setName}
+          name={name}
+          addColor={addColor}
+        />
       </div>
       <div className="w-full min-h-[80vh] flex justify-evenly items-start">
         <Items
@@ -121,6 +109,9 @@ function App() {
           secondaryColor={secondaryColor}
           changeColorLibrary={changeColorLibrary}
         />
+      </div>
+      <div className="w-full fixed bottom-0" style={{ backgroundColor: color }}>
+        <Footer fontColor={secondaryColor} />
       </div>
       <Toaster color={color} />
     </main>

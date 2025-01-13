@@ -51,7 +51,10 @@ export default function Items({ light, dark, theme, secondaryColor }: Props) {
 
   return (
     <div className="w-[40%] min-h-[80vh] flex flex-col justify-start items-center mb-20">
-      <h1 className="w-[100%] text-3xl font-medium text-center mb-5 border-b-2 border-gray-500 pb-2 rounded-lg text-black dark:text-white">
+      <h1
+        style={{ borderColor: theme == "light" ? "black" : "white" }}
+        className="w-[100%] text-3xl font-medium text-center mb-5 border-b-2 border-gray-500 pb-2 rounded-lg text-black dark:text-white"
+      >
         Previsualización de componentes
       </h1>
       <section className="relative w-[100%] grid grid-cols-2 gap-4 px-5 py-3">
@@ -85,38 +88,38 @@ export default function Items({ light, dark, theme, secondaryColor }: Props) {
         )}
         {/* Botones */}
         <div className="h-36 flex flex-wrap justify-between items-start">
-          <div className="w-full h-full flex flex-wrap items-center justify-around">
+          <div className="w-full h-full grid grid-cols-2 gap-4 place-items-center">
             <Button
-              className="dark:text-white"
+              className="dark:text-white w-24"
               style={{
-                backgroundColor: theme === "light" ? light[7] : dark[0],
+                backgroundColor: theme === "light" ? light[7] : dark[6],
                 color: secondaryColor,
               }}
             >
               Aceptar
             </Button>
             <Button
-              className="dark:text-white"
+              className="dark:text-white w-24"
               style={{
-                backgroundColor: theme === "light" ? light[5] : dark[2],
+                backgroundColor: theme === "light" ? light[5] : dark[4],
                 color: secondaryColor,
               }}
             >
               Enviar
             </Button>
             <Button
-              className="dark:text-white"
+              className="dark:text-white w-24"
               style={{
-                backgroundColor: theme === "light" ? light[4] : dark[4],
+                backgroundColor: theme === "light" ? light[4] : dark[2],
                 color: secondaryColor,
               }}
             >
               Agregar
             </Button>
             <Button
-              className="dark:text-white"
+              className="dark:text-white w-24"
               style={{
-                backgroundColor: theme === "light" ? light[2] : dark[6],
+                backgroundColor: theme === "light" ? light[2] : dark[0],
                 color: secondaryColor,
               }}
             >
@@ -175,10 +178,10 @@ export default function Items({ light, dark, theme, secondaryColor }: Props) {
         <div className="h-36 flex justify-between items-start">
           <div className="w-full h-full flex items-center justify-around">
             <Input
-              className={`mr-2 outline-none text-black dark:text-white dark:placeholder:text-white `}
+              className={`mr-2 outline-none text-black dark:text-white dark:placeholder:text-white placeholder:text-black`}
               placeholder="Buscar..."
               style={{
-                borderColor: theme == "light" ? dark[3] : "#5e5e5e",
+                borderColor: theme == "light" ? dark[3] : light[3],
               }}
             />
             <Button
@@ -239,14 +242,14 @@ export default function Items({ light, dark, theme, secondaryColor }: Props) {
           </div>
         </div>
         {/* Cards */}
-        <div className="flex h-56 items-start">
+        <div className="flex h-56 items-start col-span-2">
           <Card
             className="w-[350px] bg-[var(--color-card)] dark:bg-[var(--color-card)] border-none"
             style={{ "--color-card": cardTheme }}
           >
             <CardHeader>
               <CardTitle
-                style={{ color: theme === "light" ? light[8] : "white" }}
+                style={{ color: theme === "light" ? light[8] : light[1] }}
               >
                 Create project
               </CardTitle>
@@ -260,15 +263,12 @@ export default function Items({ light, dark, theme, secondaryColor }: Props) {
               <form>
                 <div className="grid w-full items-center gap-4">
                   <div className="flex flex-col space-y-1.5">
-                    <Label
-                      htmlFor="name"
-                      style={{ color: theme === "light" ? light[8] : dark[2] }}
-                    >
+                    <Label htmlFor="name" style={{ color: secondaryColor }}>
                       Name
                     </Label>
                     <Input
                       id="name"
-                      className="dark:placeholder:text-white"
+                      className="dark:placeholder:text-white placeholder:text-black"
                       style={{
                         border: `1px solid ${
                           theme === "light" ? light[8] : dark[5]
@@ -280,7 +280,7 @@ export default function Items({ light, dark, theme, secondaryColor }: Props) {
                   <div className="flex flex-col space-y-1.5">
                     <Label
                       htmlFor="framework"
-                      style={{ color: theme === "light" ? light[8] : dark[2] }}
+                      style={{ color: secondaryColor }}
                     >
                       Framework
                     </Label>

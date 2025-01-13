@@ -1,6 +1,7 @@
 import { useColors } from "@/context/ColorsContext";
 import { useToast } from "@/hooks/use-toast";
 import { Check, Trash2 } from "lucide-react";
+import { useLocation } from "wouter";
 
 type SavedColorProps = {
   theme: string;
@@ -14,6 +15,7 @@ export default function SavedColors({
 }: SavedColorProps) {
   const { colors, deleteColor } = useColors();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
 
   const handleDeleteColor = (id: string, name: string) => {
     deleteColor(id);
@@ -25,11 +27,19 @@ export default function SavedColors({
 
   const handleSelectColor = (primary: string, secondary: string) => {
     changeColorLibrary(primary, secondary);
+    const queryString = new URLSearchParams();
+    queryString.set("color", `#${primary.slice(1, 8)}`);
+    queryString.set("font", `#${secondary.slice(1, 8)}`);
+    queryString.set("theme", theme);
+    setLocation(`?${queryString.toString()}`);
   };
 
   return (
     <div className="w-[40%] min-h-[80vh] flex flex-col justify-start items-center mb-20">
-      <h1 className="w-[100%] text-3xl font-medium text-center mb-5 border-b-2 border-gray-500 pb-2 rounded-lg text-black dark:text-white">
+      <h1
+        style={{ borderColor: theme == "light" ? "black" : "white" }}
+        className="w-[100%] text-3xl font-medium text-center mb-5 border-b-2 border-gray-500 pb-2 rounded-lg text-black dark:text-white"
+      >
         Colores guardados
       </h1>
       {colors.length > 0 ? (
