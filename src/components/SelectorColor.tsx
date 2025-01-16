@@ -24,6 +24,10 @@ export default function SelectorColor({
   ) => {
     const queryString = new URLSearchParams();
 
+    console.log("newColor", newColor);
+    console.log("newFont", newFont);
+    console.log("newTheme", newTheme);
+
     // Agregar parámetros en el orden correcto
     if (newColor) queryString.set("color", `#${newColor.slice(1, 8)}`);
     else if (color) queryString.set("color", `#${color.slice(1, 8)}`);
@@ -40,14 +44,16 @@ export default function SelectorColor({
 
   useEffect(() => {
     const queryString = new URLSearchParams(window.location.search);
+
     const colorParam = queryString.get("color");
     const fontParam = queryString.get("font");
 
     if (colorParam) setColor(colorParam);
     if (fontParam) setSecondaryColor(fontParam);
+
+    updateQueryString(colorParam ?? undefined, fontParam ?? undefined, theme);
   }, []);
 
-  // Efecto para actualizar el query string al cambiar el theme
   useEffect(() => {
     updateQueryString(undefined, undefined, theme);
   }, [theme]);

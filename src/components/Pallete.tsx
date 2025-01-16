@@ -33,38 +33,27 @@ export default function Pallete({
     <TooltipProvider>
       <main className="w-[90%] h-52 flex flex-wrap justify-center items-center">
         {lightScale.map((color, index) => (
-          <Tooltip key={index} delayDuration={100}>
-            <TooltipTrigger
-              onClick={() => handleCopy(color)}
-              className="w-20 h-20 flex items-center justify-center border-[0.5px] border-white hover:scale-110 hover:px-2 transition-all ease-out duration-300"
-              style={{ backgroundColor: color }}
-            >
-              <span className="-z-10 hover:z-10">
-                <Copy color="black" />
-              </span>
-            </TooltipTrigger>
+          <div>
+            <Tooltip key={index} delayDuration={100}>
+              <TooltipTrigger
+                onClick={() => handleCopy(color)}
+                className="w-20 h-20 flex items-center justify-center border-[0.5px] border-white hover:scale-110 hover:px-2 transition-all ease-out duration-300"
+                style={{ backgroundColor: color }}
+              >
+                <span className="-z-10 hover:z-10">
+                  <Copy color="black" />
+                </span>
+              </TooltipTrigger>
 
-            <TooltipContent>
-              <p>{color}</p>
-            </TooltipContent>
-          </Tooltip>
+              <TooltipContent>
+                <p>{color}</p>
+              </TooltipContent>
+            </Tooltip>
+            <h2 className="text-center text-md pt-2 italic">{color}</h2>
+          </div>
         ))}
-        <Tooltip delayDuration={100}>
-          <TooltipTrigger
-            onClick={() => handleCopy(color)}
-            className="w-20 h-20 flex items-center justify-center border-[0.5px] border-white hover:scale-110 hover:px-2 transition-all ease-out duration-300"
-            style={{ backgroundColor: color }}
-          >
-            <span className="-z-10 hover:z-10">
-              <Copy />
-            </span>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>{color}</p>
-          </TooltipContent>
-        </Tooltip>
-        {darkScale.map((color, index) => (
-          <Tooltip key={index} delayDuration={100}>
+        <div>
+          <Tooltip delayDuration={100}>
             <TooltipTrigger
               onClick={() => handleCopy(color)}
               className="w-20 h-20 flex items-center justify-center border-[0.5px] border-white hover:scale-110 hover:px-2 transition-all ease-out duration-300"
@@ -78,6 +67,26 @@ export default function Pallete({
               <p>{color}</p>
             </TooltipContent>
           </Tooltip>
+          <h2 className="text-center text-md pt-2 italic">{color}</h2>{" "}
+        </div>
+        {darkScale.map((color, index) => (
+          <div>
+            <Tooltip key={index} delayDuration={100}>
+              <TooltipTrigger
+                onClick={() => handleCopy(color)}
+                className="w-20 h-20 flex items-center justify-center border-[0.5px] border-white hover:scale-110 hover:px-2 transition-all ease-out duration-300"
+                style={{ backgroundColor: color }}
+              >
+                <span className="-z-10 hover:z-10">
+                  <Copy />
+                </span>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{color}</p>
+              </TooltipContent>
+            </Tooltip>
+            <h2 className="text-center text-md pt-2 italic">{color}</h2>{" "}
+          </div>
         ))}
       </main>
     </TooltipProvider>

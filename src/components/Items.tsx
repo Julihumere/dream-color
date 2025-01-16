@@ -199,6 +199,7 @@ export default function Items({ light, dark, theme, secondaryColor }: Props) {
         <div className="h-36 flex justify-center items-center">
           <div className="grid grid-cols-3 gap-4">
             <Switch
+              secondary={secondaryColor}
               style={{
                 "--color": colorTheme,
                 "--border": colorTheme,
@@ -208,15 +209,7 @@ export default function Items({ light, dark, theme, secondaryColor }: Props) {
               checked
             ></Switch>
             <Switch
-              className="data-[state=checked]:bg-[var(--color)] data-[state=unchecked]:bg-[#fff] data-[state=checked]:border-[var(--border)] mr-2"
-              style={{
-                "--color": colorTheme,
-                "--border": colorTheme,
-                backgroundColor: colorTheme,
-              }}
-              checked
-            ></Switch>
-            <Switch
+              secondary={secondaryColor}
               className="data-[state=checked]:bg-[var(--color)] data-[state=checked]:border-[var(--border)] mr-2"
               style={{
                 "--color": colorTheme,
@@ -226,17 +219,31 @@ export default function Items({ light, dark, theme, secondaryColor }: Props) {
               checked
             ></Switch>
             <Switch
-              className="data-[state=checked]:bg-[var(--color)] data-[state=unchecked]:bg-[#ffffff] data-[state=checked]:border-[var(--border)] mr-2"
+              secondary={secondaryColor}
+              className="data-[state=checked]:bg-[var(--color)] data-[state=checked]:border-[var(--border)] mr-2"
               style={{
                 "--color": colorTheme,
                 "--border": colorTheme,
+                backgroundColor: colorTheme,
+              }}
+              checked
+            ></Switch>
+            <Switch
+              secondary={secondaryColor}
+              className="data-[state=checked]:bg-[var(--color)] data-[state=unchecked]:bg-[var(--secondary)] dark:data-[state=unchecked]:bg-[var(--secondary)] data-[state=checked]:border-[var(--border)] mr-2"
+              style={{
+                "--color": colorTheme,
+                "--border": colorTheme,
+                "--secondary": secondaryColor,
               }}
             ></Switch>
             <Switch
-              className="data-[state=checked]:bg-[var(--color)] data-[state=unchecked]:bg-[#ffffff] data-[state=checked]:border-[var(--border)] mr-2"
+              secondary={secondaryColor}
+              className="data-[state=checked]:bg-[var(--color)] data-[state=unchecked]:bg-[var(--secondary)] dark:data-[state=unchecked]:bg-[var(--secondary)] data-[state=checked]:border-[var(--border)] mr-2"
               style={{
                 "--color": colorTheme,
                 "--border": colorTheme,
+                "--secondary": secondaryColor,
               }}
             ></Switch>
           </div>

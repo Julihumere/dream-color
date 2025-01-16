@@ -12,14 +12,20 @@ import { useColors } from "./context/ColorsContext";
 import { useToast } from "./hooks/use-toast";
 import Footer from "./components/Footer";
 import ActionsButtons from "./components/ActionsButtons";
+import Confetti from "react-confetti";
+import { useWindowSize } from "react-use";
 
 function App() {
   const [color, setColor] = useState("#FF0934");
   const [name, setName] = useState("");
   const [secondaryColor, setSecondaryColor] = useState("#FFFFFF");
+  const [showConfetti, setShowConfetti] = useState(false);
+  // Hooks
   const { theme } = useTheme();
   const { toast } = useToast();
   const { saveColor } = useColors();
+
+  const { width, height } = useWindowSize();
 
   const lightScale = chroma.scale(["white", color]).colors(11).slice(1, 10);
   const darkScale = chroma.scale([color, "black"]).colors(10).slice(0, 9);
@@ -94,6 +100,7 @@ function App() {
           setName={setName}
           name={name}
           addColor={addColor}
+          setShowConfetti={setShowConfetti}
         />
       </div>
       <div className="w-full min-h-[80vh] flex justify-evenly items-start">
@@ -110,10 +117,21 @@ function App() {
           changeColorLibrary={changeColorLibrary}
         />
       </div>
-      <div className="w-full fixed bottom-0" style={{ backgroundColor: color }}>
+      <div
+        className="w-full fixed z-20 bottom-0"
+        style={{ backgroundColor: color }}
+      >
         <Footer fontColor={secondaryColor} />
       </div>
       <Toaster color={color} />
+      {showConfetti && (
+        <Confetti
+          width={width - 20}
+          height={height}
+          colors={[...lightScale, ...darkScale]}
+          onConfettiComplete={() => setShowConfetti(false)}
+        />
+      )}
     </main>
   );
 }

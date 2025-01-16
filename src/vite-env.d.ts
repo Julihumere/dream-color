@@ -8,5 +8,6 @@ declare module "react" {
     "--color-card"?: string;
     "--light"?: string[];
     "--dark"?: string[];
+    "--secondary"?: string;
   }
 }
